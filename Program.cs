@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<SessionService<List<ToDo>>>();
+builder.Services.AddScoped<SessionService>();
 builder.Services.AddScoped<ToDoService>();
 
 builder.Services.AddSession(options =>

@@ -13,9 +13,11 @@ namespace SessionServiceToDo.Helper
 
         public static T GetData<T>(this ISession session, string key)
         {
-            //session.Keys.FirstOrDefault(key) == default ? default : 
-            var ses = session.GetString(key);
-            return ses == null ? default : JsonSerializer.Deserialize<T>(ses);
+            T result = default(T); //pro int = 0; pro string null, pro class = null ...
+            var ses = session.GetString(key); //pokud je session prázdná, vrací null!
+            if (ses != null) result = JsonSerializer.Deserialize<T>(ses);
+            if (typeof(T).IsClass && result == null) result = (T)Activator.CreateInstance(typeof(T));
+            return result;
         }
     }
 }
